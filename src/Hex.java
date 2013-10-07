@@ -83,6 +83,9 @@ public class Hex implements BoardGame {
 		}
 		
 		checkNeighbours(x,y,nowPlaying);
+		
+//		if(wqu.connected(board[0][1], board[1][1]))
+//		{StdOut.print(" Yes Boy \n");}
 
 		// TODO: calculate location and neighbours location in
 		// WeightedQuickUnionUF data structure
@@ -96,48 +99,53 @@ public class Hex implements BoardGame {
 	}
 
 	public void checkNeighbours(int x, int y, int nowPlaying) {
+		
 		int playerNumber = nowPlaying;
 		
-		int hexCheck = 0;
+		int neighbour = 0;
 		
-		board[x][y] = 3;
-		
-		int col = n1;
-		int row = n2;
-		int count = 0;
-		
-		for(int i = 0; i < col; i++ )
-		{
-			for(int j = 0; j < row; j++)
-			{
-				if(board[i][j] == 3 )
-				{
-					count = (n1*y) + x;
-				}
-			}
+		int playerPosition = (n1 * y) + x;
+
+		if (y > 0 && (board[x][y - 1] == playerNumber)) {
 			
-		}
-		board[x][y] = playerNumber;
-
-		if ((board[x - 1][y] == playerNumber)) {
+			neighbour = (n1 * x) + y - 1;
 			
-			int myBoard = count;
-			int neighbour = 
+			wqu.union(playerPosition, neighbour);
 
 		}
-		if ((board[x - 1][y + 1] == playerNumber)) {
+		if (x > 0 && y < n2 - 1 && (board[x - 1][y + 1] == playerNumber)) {
+			
+			neighbour = (n1 * (x - 1)) + y + 1;
+			
+			wqu.union(playerPosition, neighbour);
 
 		}
-		if ((board[x][y + 1] == playerNumber)) {
+		if (y < n2 - 1 && (board[x][y + 1] == playerNumber)) {
+			
+			neighbour = (n1 * x) + y + 1;
+			
+			wqu.union(playerPosition, neighbour);
 
 		}
-		if ((board[x + 1][y] == playerNumber)) {
+		if (x < n1 - 1 && y <= n2 && (board[x + 1][y] == playerNumber)) {
+			
+			neighbour = (n1 * (x + 1)) + y;
+			
+			wqu.union(playerPosition, neighbour);
 
 		}
-		if ((board[x + 1][y - 1] == playerNumber)) {
+		if (x < n1 - 1 && y > 1 && (board[x + 1][y - 1] == playerNumber)) {
+			
+			neighbour = (n1 * (x + 1)) + y - 1;
+			
+			wqu.union(playerPosition, neighbour);
 
 		}
-		if ((board[x - 1][y] == playerNumber)) {
+		if (x > 0 && (board[x - 1][y] == playerNumber)) {
+			
+			neighbour = (n1 * (x - 1)) + y;
+			
+			wqu.union(playerPosition, neighbour);
 
 		}
 
